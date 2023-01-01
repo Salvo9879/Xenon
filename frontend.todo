@@ -1,8 +1,8 @@
 StyleGuide:
     Inputs:
         ✔ button @done(22-12-31 14:01)
-        ☐ checkbox
-        ☐ color
+        ✔ checkbox @done(23-01-01 10:53)
+        ✔ color @done(23-01-01 11:08)
         ☐ date/datetime-local
         ☐ email
         ☐ file
