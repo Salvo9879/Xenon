@@ -15,21 +15,23 @@ class Users(db.Model):
     settings = db.Column(db.JSON, nullable=True)
 
     @property
-    def password(self):
+    def password(self) -> None:
         raise AttributeError('Property \'password\' is not a readable attribute')
     
     @password.setter
-    def password(self, password):
+    def password(self, password: str) -> None:
         self.hashed_password = generate_password_hash(password)
 
-    def verify_password(self, password):
+    def verify_password(self, password: str) -> bool:
         return check_password_hash(self.hashed_password, password)
 
-class Apis(db.Model):
+class GoveeDB(db.Model):
+    """ Stores the govee devices in a database. """
+
     id = db.Column(db.Integer, primary_key=True)
-    api_url = db.Column(db.String, nullable=False)
-    api_key = db.Column(db.String, nullable=False)
-    api_name = db.Column(db.String, nullable=False, unique=True)
-    parameters = db.Column(db.JSON, nullable=True)
-    api_last_call_dt = db.Column(db.DateTime, nullable=True)
-    api_last_call_data = db.Column(db.JSON, nullable=True)
+    device_name = db.Column(db.String, nullable=False)
+    device_id = db.Column(db.String, nullable=False)
+    device_model = db.Column(db.String, nullable=False)
+
+    def __repr__(self) -> str:
+        return f"< - [{self.id}] - {self.device_name} - ID: {self.device_id} - MODEL: {self.device_model} ->"

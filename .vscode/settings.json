@@ -1,6 +1,9 @@
 {
     "cSpell.words": [
+        "errorhandlers",
         "Govee",
+        "levelname",
+        "levelno",
         "sqlalchemy",
         "werkzeug",
         "xlarge",
