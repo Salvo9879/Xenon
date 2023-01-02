@@ -7,10 +7,9 @@ GOVEE_API_GET_URL = 'https://developer-api.govee.com/v1/devices'
 GOVEE_API_PUT_URL = 'https://developer-api.govee.com/v1/devices/control'
 
 class GoveeDevice():
-    """ Object which configures all Govee Devices. This makes it easier to get information about certain devices. """
+    """ Class which configures all Govee Devices. This makes it easier to get information about certain devices. """
 
     def __init__(self, data: dict) -> None:
-        # TODO create docstring 
         self.data = data
         self.cmd = data['supportCmds']
 
@@ -68,7 +67,7 @@ class GoveeDevice():
         return self.data['properties']['colorTem']['range']
 
 class NewGetRequest():
-    """ Object to create a new get request. """
+    """ Class to create a new get request. """
 
     def __init__(self, api_key: str) -> None:
         self.api_url = GOVEE_API_GET_URL
@@ -84,6 +83,8 @@ class NewGetRequest():
 
     def create_request(self) -> None:
         """ Function which configures the request with the url & headers. The returned status code & message is then assigned to attributes `self.code` & `self.message`. """
+
+        # TODO: Create helper which blocks requests made from a unauthorized user & logger.
 
         r = requests.get(url=self.api_url, headers=self.api_headers).json()
 
@@ -171,7 +172,7 @@ class NewGetRequest():
         return self._get_device_by_identifier('cmd', 'colorTem', mode)
 
 class NewPutRequest():
-    """ Object to create a new put request. """
+    """ Class to create a new put request. """
 
     def __init__(self, api_key: str, device: GoveeDevice) -> None:
         self.api_url = GOVEE_API_PUT_URL
@@ -187,10 +188,15 @@ class NewPutRequest():
         self.message = None
         self.code = None
 
+    def __repr__(self) -> str:
+        return f"[ {self.code} ] - {self.message}"
+
     def create_request(self) -> None:
         """ Function which configures the request with the url, headers & payload. 
         If the payload is not configured, i.e., a command function has not been called, then it will raise an attribute error.  
         The returned status code & message is then assigned to the attributes `self.code` & `self.message`. """
+
+         # TODO: Create helper which blocks requests made from a unauthorized user & logger.
 
         if not self.payload:
             raise AttributeError('Request was rejected due to empty payload')

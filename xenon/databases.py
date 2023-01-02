@@ -30,15 +30,14 @@ class Users(db.Model):
     def __repr__(self) -> str:
         return f"<- [{self.id}] - {self.forename} {self.surname} - EMAIL: {self.email} HOUSEHOLD NAME: {self.household_name} ->"
 
-class GoveeDB(db.Model):
+class GoveeDevicesDB(db.Model):
     """ Stores the govee devices in a database. """
 
     __bind_key__ = 'govee'
 
     id = db.Column(db.Integer, primary_key=True)
-    device_name = db.Column(db.String, nullable=False)
-    device_id = db.Column(db.String, nullable=False)
-    device_model = db.Column(db.String, nullable=False)
+    govee_device = db.Column(db.PickleType, nullable=False)
 
     def __repr__(self) -> str:
-        return f"<- [{self.id}] - {self.device_name} - ID: {self.device_id} - MODEL: {self.device_model} ->"
+        gd = self.govee_device
+        return f"[ {gd.device_name} ] - MODEL: {gd.model} - DEVICE ID: {gd.device_id}"
