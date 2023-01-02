@@ -13,6 +13,12 @@ class BaseException(Exception):
         logger.error(f"{exception}: {message}")
 
 class Apis():
+    class MethodNotAllowed(BaseException):
+        """ Raised when an internal api call is called under a request method that is not allowed. """
+        pass
+
+
     class Govee():
         class FailedToCreateDevice(BaseException):
             """ Raised when the `xenon.databases.Govee()` database manager attempts to add & commit a row to the database which results the action to fail. This is a development error. """
+            pass
