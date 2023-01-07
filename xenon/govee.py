@@ -66,7 +66,7 @@ class GoveeDevice():
         """ Returns the `temperature range` of the device (`devices.properties.colorTem.range`). """
         return self.data['properties']['colorTem']['range']
 
-class NewGetRequest():
+class GoveeGetRequest():
     """ Class to create a new get request. """
 
     def __init__(self, api_key: str) -> None:
@@ -171,7 +171,7 @@ class NewGetRequest():
         """ Gets devices based on whether they support the `temperature` cmd. """
         return self._get_device_by_identifier('cmd', 'colorTem', mode)
 
-class NewPutRequest():
+class GoveePutRequest():
     """ Class to create a new put request. """
 
     def __init__(self, api_key: str, device: GoveeDevice) -> None:

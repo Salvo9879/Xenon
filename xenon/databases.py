@@ -6,6 +6,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 db = SQLAlchemy()
 
 class Users(db.Model):
+    """ The database which managers users on the service. """
+
     __bind_key__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -29,15 +31,3 @@ class Users(db.Model):
 
     def __repr__(self) -> str:
         return f"<- [{self.id}] - {self.forename} {self.surname} - EMAIL: {self.email} HOUSEHOLD NAME: {self.household_name} ->"
-
-class GoveeDevicesDB(db.Model):
-    """ Stores the govee devices in a database. """
-
-    __bind_key__ = 'govee'
-
-    id = db.Column(db.Integer, primary_key=True)
-    govee_device = db.Column(db.PickleType, nullable=False)
-
-    def __repr__(self) -> str:
-        gd = self.govee_device
-        return f"[ {gd.device_name} ] - MODEL: {gd.model} - DEVICE ID: {gd.device_id}"

@@ -1,24 +1,17 @@
 
 # Import internal modules
-from helpers import get_class_name
+from xenon.helpers import get_class_name
 
 # Import external modules
 import logging
+import werkzeug.exceptions as http_exceptions
 
 class BaseException(Exception):
     def __init__(self, message: str, logger: logging.Logger) -> None:
+        """ `message: str ->` A message which will be returned to the exception handler.
+        `logger: logging.Logger ->` a Logger object which sorts out where the information goes. """
+
         super().__init__(message)
 
         exception = get_class_name(self)
         logger.error(f"{exception}: {message}")
-
-class Apis():
-    class MethodNotAllowed(BaseException):
-        """ Raised when an internal api call is called under a request method that is not allowed. """
-        pass
-
-
-    class Govee():
-        class FailedToCreateDevice(BaseException):
-            """ Raised when the `xenon.databases.Govee()` database manager attempts to add & commit a row to the database which results the action to fail. This is a development error. """
-            pass
