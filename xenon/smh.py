@@ -55,11 +55,11 @@ class Assignment():
 
     def _get_assignment_data(self) -> dict:
         """ Returns data purely about the assignment. """
-        return self._data['homework']
+        return self.get_data()['homework']
 
     def _get_lesson_occurrences(self) -> dict:
         """ Returns data purely about the lesson occurrence. """
-        return self._data['lesson_occurrences']
+        return self.get_data()['lesson_occurrences']
 
     @property
     def assignment_id(self) -> int:
@@ -204,10 +204,6 @@ class TodosRequest(GetRequest):
         }
         self.api_headers = _header()
 
-    def get_data(self) -> dict:
-        """ Returns the whole data package of the object. """
-        return self._data
-
     def get_all(self) -> list:
         """ Returns a list with all the ids on the todo list. """
         all_list = []
@@ -249,12 +245,12 @@ class AssignmentRequest(GetRequest):
 
         remove_list = ['teacher_id', 'published_at', 'created_at', 'class_year', 'submission_status', 'submission_ids', 'school_id', 'school_name', 'school_logo_url', 'submission_method_id', 'for_partial_group', 'partial_group_of_student_ids', 'source_id', 'marking_scheme_id', 'submission_type', 'community_resource_item_id', 'bookstore_content_ids', 'period_id']
 
-        h_data = self._data['homework']
+        h_data = self.get_data()['homework']
         for key in list(h_data.keys()):
             if key in remove_list:
                 h_data.pop(key)
 
-        lo_data = self._data['lesson_occurrences']
+        lo_data = self.get_data()['lesson_occurrences']
         for i, lo in enumerate(lo_data):
             for key in list(lo.keys()):
                 if key in remove_list:
@@ -263,10 +259,6 @@ class AssignmentRequest(GetRequest):
 
         self._data['homework'] = h_data
         self._data['lesson_occurrences'] = lo_data
-
-    def get_data(self) -> dict:
-        """ Returns the whole data package of the object. This should be used instead of `self._data`. """
-        return self._data
     
     @property
     def assignment(self):
@@ -290,16 +282,12 @@ class AttachmentRequest(GetRequest):
 
         remove_list = ['user_id', 'preview_url', 'third_party_provider', 'third_party_shared_link', 'is_previewable']
 
-        new_data = self._data['attachments'][0]
+        new_data = self.get_data()['attachments'][0]
         for key in list(new_data.keys()):
             if key in remove_list:
                 new_data.pop(key)
         
         self._data = new_data
-
-    def get_data(self) -> dict:
-        """ Returns the whole data package of the object. This should be used instead of `self._data`. """
-        return self._data
 
     @property
     def attachment(self):
