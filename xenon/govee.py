@@ -135,7 +135,7 @@ class PutDevicesRequest(PutRequest):
 
         self.api_url = _Urls.PUT_URL
         self.api_params = {}
-        self.api_header = {
+        self.api_headers = {
             'Govee-API-Key': api_key,
             'Content-Type': 'application/json'
         }

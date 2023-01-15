@@ -67,16 +67,38 @@ class GetRequest():
 
 class PutRequest():
     def __init__(self, api_url: str = '', api_params: dict = {}, api_headers: dict = {}, api_payload: dict = {}) -> None:
-        self.api_url: dict = api_url
+        self.api_url: str = api_url
         self.api_params: dict = api_params
-        self.api_header: dict = api_headers
+        self.api_headers: dict = api_headers
         self.api_payload: dict = api_payload
 
         self.code: int = None
         self._data: dict = None
 
     def create_request(self) -> None:
-        r = requests.put(url=self.api_url, params=self.api_params, headers=self.api_header, data=json.dumps(self.api_payload))
+        r = requests.put(url=self.api_url, params=self.api_params, headers=self.api_headers, data=json.dumps(self.api_payload))
 
         self.code = r.status_code
-        self._data = r.json()
+        self._data = r.text
+
+class DeleteRequest():
+    def __init__(self, api_url: str = '', api_params: dict = {}, api_headers: dict = {}) -> None:
+        self.api_url: str = api_url
+        self.api_params: dict = api_params
+        self.api_headers: dict = api_headers
+
+        self.code: int = None
+        self._data: dict = None
+
+    def create_request(self) -> None:
+        r = requests.delete(url=self.api_url, params=self.api_params, headers=self.api_headers)
+
+        self.code = r.status_code
+        self._data = r.text
+
+class ObjectScaffold():
+    def __init__(self, data: dict) -> None:
+        self._data = data
+
+    def get_data(self):
+        return self._data

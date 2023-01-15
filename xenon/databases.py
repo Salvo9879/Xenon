@@ -18,6 +18,13 @@ class Users(db.Model):
     hashed_password = db.Column(db.String, nullable=False)
     settings = db.Column(db.JSON, nullable=True)
 
+    govee_access_token = ''
+    
+    smh_access_token = ''
+
+    spotify_access_token = ''
+    spotify_request_token = ''
+
     @property
     def password(self) -> None:
         raise AttributeError('Property \'password\' is not a readable attribute')

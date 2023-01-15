@@ -1,0 +1,7 @@
+✔ Bug in xenon.spotify.AlbumRequests.GetNewReleases(). Having limit as a url param returns HTTP 400 - Invalid limit. @done(23-01-11 20:41)
+☐ xenon.spotify.ArtistRequests.GetArtistsTopTracks(). For some reason needs a market parameter. Create code which makes this transaction simplier.
+☐ xenon.spotify.Track(). Needs to be completed.
+✔ xenon.spotify.Episode(). Needs to be completed. @done(23-01-13 16:36)
+☐ BUG discovered in xenon.Spotify.AudiobookRequests.GetCurrentUsersSavedAudiobooks()
+☐ Look over properties of xenon.spotify.Album.
+☐ Create pagination function
