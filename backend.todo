@@ -1,8 +1,6 @@
 ☐ Create pagintaion function.
-☐ Go through xenon.spotify3.models.Track.linked_album.
-☐ Review xenon.spotify3.models.SearchResults().
+✔ Go through xenon.spotify3.models.Track.linked_album. @done(23-01-28 17:06)
+✔ Review xenon.spotify3.models.SearchResults(). @done(23-01-28 17:16)
 ✔ Create an AudioFeatures() model @done(23-01-22 22:14).
-☐ xenon.spotify3.tracks.Recommendations() - Review this whole function - more specifically how the api works. As of now it only takes in required parameters, however there are many more to include.
-☐ Create xenon.spotify3.tracks.AudioAnalyzer() - For future release.
-☐ xenon.spotify3.playlists.UpdatePlaylistItems() - Complete. Did not finish due to complexity of the code.
-☐ xenon.spotify3.helpers.MAX_PLAYLIST_ITEMS_COUNT - integer value needs to be revised.
+✔ xenon.spotify3.tracks.Recommendations() - Review this whole function - more specifically how the api works. As of now it only takes in required parameters, however there are many more to include. @done(23-01-28 17:39)
+✔ xenon.spotify3.playlists.ReplacePlaylistItems() - Did not create. Did not seem necessary however may add in later addition. @done(23-01-28 18:30)

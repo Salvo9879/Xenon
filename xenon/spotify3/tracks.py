@@ -1,7 +1,7 @@
 
 # Import internal modules
 from xenon.models import GetRequest, PutRequest, DeleteRequest
-from xenon.spotify3.helpers import _headers, BASE_URL, MAX_TRACK_IDS_COUNT, MIN_IDS_COUNT, config_list_to_comma_str, current_users_market
+from xenon.spotify3.helpers import _headers, BASE_URL, MAX_TRACK_IDS_COUNT, MIN_IDS_COUNT, MAX_SEED_COUNT, config_list_to_comma_str, current_users_market
 from xenon.spotify3.models import FollowingRequest, Track, AudioFeatures
 
 class GetTracks(GetRequest):
@@ -123,15 +123,6 @@ class GetTracksAudioFeatures(GetRequest):
         """ Configures the data ready to returned to be the caller. """
         self._data = AudioFeatures(self.get_data())
 
-class GetTrackAudioAnalysis(GetRequest):
-    """ Get a low-level audio analysis for a track in the Spotify catalog. The audio analysis describes the track's structure and musical content, including rhythm, pitch, and timbre. https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-analysis 
-    
-    TODO: Create the functions
-    """
-    def __init__(self) -> None:
-        super().__init__()
-        raise AttributeError('THIS FUNCTION IS CURRENTLY NOT AVAILABLE.')
-
 class GetRecommendations(GetRequest):
     """ Recommendations are generated based on the available information for a given seed entity and matched against similar artists and tracks. If there is sufficient information about the provided seeds, a list of tracks will be returned together with pool size details. https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations.
 
@@ -139,21 +130,32 @@ class GetRecommendations(GetRequest):
     
     TODO: Review this whole function - more specifically how the api works. As of now it only takes in required parameters, however there are many more to include.
     """
-    def __init__(self, seed_genres: str, seed_tracks: str, limit: int = MAX_TRACK_IDS_COUNT, offset: int = 0) -> None:
+    def __init__(self, seed_artists: list = None, seed_genres: list = None, seed_tracks: list = None, limit: int = MAX_TRACK_IDS_COUNT, offset: int = 0, market: str = current_users_market()) -> None:
         super().__init__()
+
+        seed_len = (0 if seed_artists is None else len(seed_artists)) + (0 if seed_genres is None else len(seed_genres)) + (0 if seed_tracks is None else len(seed_tracks))
+        if seed_len > MAX_SEED_COUNT:
+            raise ValueError(f"Up to {MAX_SEED_COUNT} seed values may be provided in any combination of 'seed_artists', 'seed_tracks' and 'seed_genres'. Got {seed_len} seed values!")
+
+        if seed_artists is not None:
+            self.api_params.update({'seed_artists': seed_artists})
+        if seed_genres is not None:
+            self.api_params.update({'seed_artists': seed_genres})
+        if seed_tracks is not None:
+            self.api_params.update({'seed_artists': seed_tracks})
+
+        if not self.api_params:
+            raise ValueError(f"No seed values were passed. There must be at least 1 seed value to process this request!")
 
         self.api_url = f"{BASE_URL}/recommendations"
         self.api_params = {
             'limit': limit,
-            'offset': offset,
-            'seed_genres': seed_genres,
-            'seed_tracks': seed_tracks
+            'offset': offset
         }
         self.api_headers = _headers()
 
     def _config_data(self) -> None:
         """ Configures the data ready to returned to be the caller. """
-        # TODO: Create code which also returns the seed recommendation objects
 
         tracks_list = []
         for track in self.get_data()['track']:

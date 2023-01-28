@@ -15,6 +15,8 @@ MAX_PLAYER_ITEMS_COUNT = 50
 
 MIN_IDS_COUNT = 1
 
+MAX_SEED_COUNT = 5
+
 _TOKEN = ''
 
 def current_users_market() -> str:

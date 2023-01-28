@@ -111,8 +111,7 @@ class Album(ObjectScaffold):
     @property
     def tracks_metadata(self) -> None:
         """ Returns a `FollowingRequest()` for the tracks of the album. """
-        return FollowingRequest(self.get_data()['tracks'])
-        
+        return FollowingRequest(self.get_data()['tracks'])   
 
 class Artist(ObjectScaffold):
     def __init__(self, data: dict) -> None:
@@ -567,8 +566,8 @@ class Track(ObjectScaffold):
 
     @property   
     def linked_album(self) -> Album:
-        """ TODO: We need to go through this """
-        raise AttributeError('This function is currently not made')
+        """ The album in which the track is released under. NOTE: This property returns a `Album()` object. It will not include the property `episodes`. """
+        return Album(self.get_data()['album'])
 
     @property   
     def artists(self) -> list:
@@ -765,9 +764,58 @@ class AudioFeatures(ObjectScaffold):
         return self.get_data()['audio_features']['valence']
 
 class SearchResults(ObjectScaffold):
-    # TODO: The whole code is based on a pagination function. Review this at a later date.
     def __init__(self, data: dict) -> None:
         super().__init__(data)
+    
+        
+    @property
+    def tracks(self) -> FollowingRequest:
+        """ Tracks related to the search query. Returns `None` if it wasn't declared by the filters query at the get request. """
+        if 'tracks' in self.get_data():
+            return FollowingRequest(self.get_data()['tracks'])
+        return None
+    
+    @property
+    def artists(self) -> FollowingRequest:
+        """ Artists related to the search query. Returns `None` if it wasn't declared by the filters query at the get request. """
+        if 'artists' in self.get_data():
+            return FollowingRequest(self.get_data()['artists'])
+        return None
+    
+    @property
+    def albums(self) -> FollowingRequest:
+        """ Albums related to the search query. Returns `None` if it wasn't declared by the filters query at the get request. """
+        if 'albums' in self.get_data():
+            return FollowingRequest(self.get_data()['albums'])
+        return None
+    
+    @property
+    def playlists(self) -> FollowingRequest:
+        """ Playlists related to the search query. Returns `None` if it wasn't declared by the filters query at the get request. """
+        if 'playlists' in self.get_data():
+            return FollowingRequest(self.get_data()['playlists'])
+        return None
+    
+    @property
+    def shows(self) -> FollowingRequest:
+        """ Shows related to the search query. Returns `None` if it wasn't declared by the filters query at the get request. """
+        if 'show' in self.get_data():
+            return FollowingRequest(self.get_data()['shows'])
+        return None
+    
+    @property
+    def episodes(self) -> FollowingRequest:
+        """ Episodes related to the search query. Returns `None` if it wasn't declared by the filters query at the get request. """
+        if 'episodes' in self.get_data():
+            return FollowingRequest(self.get_data()['episodes'])
+        return None
+    
+    @property
+    def audiobooks(self) -> FollowingRequest:
+        """ Audiobooks related to the search query. Returns `None` if it wasn't declared by the filters query at the get request. """
+        if 'audiobooks' in self.get_data():
+            return FollowingRequest(self.get_data()['audiobooks'])
+        return None
 
 class User(ObjectScaffold):
     def __init__(self, data: dict) -> None:

@@ -77,15 +77,18 @@ class AddItemsToPlaylist(PostRequest):
         }
         self.api_headers = _headers()
 
-class UpdatePlaylistItems(PutRequest):
-    """ Either reorder or replace items in a playlist depending on the request's parameters. To reorder items, include range_start, insert_before, range_length and snapshot_id in the request's body. To replace items, include uris as either a query parameter or in the request's body. Replacing items in a playlist will overwrite its existing items. This operation can be used for replacing or clearing items in a playlist. https://developer.spotify.com/documentation/web-api/reference/#/operations/reorder-or-replace-playlists-tracks
-
-    NOTE: Replace and reorder are mutually exclusive operations which share the same endpoint, but have different parameters. These operations can't be applied together in a single request. 
-    
-    TODO: Finish the function of this code at a later date. Very hard to complete. """
-    def __init__(self, playlist_id: str, item_uris: list, ) -> None:
+class ReorderPlaylistItems(PutRequest):
+    """ Reorders items in a playlist. https://developer.spotify.com/documentation/web-api/reference/#/operations/reorder-or-replace-playlists-tracks. """
+    def __init__(self, playlist_id: str, range_start: int, range_length: int, insert_before: int) -> None:
         super().__init__()
-        raise AttributeError(f"This code currently does not work!")
+
+        self.api_url = f"{BASE_URL}/playlists/{playlist_id}/tracks"
+        self.api_params = {
+            'range_start': range_start,
+            'range_length': range_length,
+            'insert_before': insert_before
+        }
+        self.api_headers = _headers()
 
 class RemovePlaylistItems(DeleteRequest):
     """ Remove one or more items from a user's playlist. """
