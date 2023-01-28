@@ -1,10 +1,13 @@
 {
     "cSpell.words": [
+        "acousticness",
         "Audiobook",
         "Audiobooks",
         "Cmds",
+        "danceability",
         "errorhandlers",
         "Govee",
+        "instrumentalness",
         "KHTML",
         "levelname",
         "levelno",
@@ -12,7 +15,9 @@
         "referer",
         "satchelone",
         "smhw",
+        "speechiness",
         "sqlalchemy",
+        "Tatums",
         "todos",
         "Unfollow",
         "werkzeug",

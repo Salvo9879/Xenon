@@ -1,7 +1,8 @@
-✔ Bug in xenon.spotify.AlbumRequests.GetNewReleases(). Having limit as a url param returns HTTP 400 - Invalid limit. @done(23-01-11 20:41)
-☐ xenon.spotify.ArtistRequests.GetArtistsTopTracks(). For some reason needs a market parameter. Create code which makes this transaction simplier.
-☐ xenon.spotify.Track(). Needs to be completed.
-✔ xenon.spotify.Episode(). Needs to be completed. @done(23-01-13 16:36)
-☐ BUG discovered in xenon.Spotify.AudiobookRequests.GetCurrentUsersSavedAudiobooks()
-☐ Look over properties of xenon.spotify.Album.
-☐ Create pagination function
+☐ Create pagintaion function.
+☐ Go through xenon.spotify3.models.Track.linked_album.
+☐ Review xenon.spotify3.models.SearchResults().
+✔ Create an AudioFeatures() model @done(23-01-22 22:14).
+☐ xenon.spotify3.tracks.Recommendations() - Review this whole function - more specifically how the api works. As of now it only takes in required parameters, however there are many more to include.
+☐ Create xenon.spotify3.tracks.AudioAnalyzer() - For future release.
+☐ xenon.spotify3.playlists.UpdatePlaylistItems() - Complete. Did not finish due to complexity of the code.
+☐ xenon.spotify3.helpers.MAX_PLAYLIST_ITEMS_COUNT - integer value needs to be revised.

@@ -82,10 +82,11 @@ class PutRequest():
         self._data = r.text
 
 class DeleteRequest():
-    def __init__(self, api_url: str = '', api_params: dict = {}, api_headers: dict = {}) -> None:
+    def __init__(self, api_url: str = '', api_params: dict = {}, api_headers: dict = {}, api_payload: dict = {}) -> None:
         self.api_url: str = api_url
         self.api_params: dict = api_params
         self.api_headers: dict = api_headers
+        self.api_payload: dict = api_payload
 
         self.code: int = None
         self._data: dict = None
@@ -95,6 +96,32 @@ class DeleteRequest():
 
         self.code = r.status_code
         self._data = r.text
+
+class PostRequest():
+    def __init__(self, api_url: str = '', api_params: dict = {}, api_headers: dict = {}, api_payload: dict = {}, cdq: bool = False) -> None:
+        self.api_url: str = api_url
+        self.api_params: dict = api_params
+        self.api_headers: dict = api_headers
+        self.api_payload: dict = api_payload
+
+        self.code: int = None
+        self._data: dict = None
+
+        self.cdq = cdq
+
+    def create_request(self) -> None:
+        r = requests.delete(url=self.api_url, params=self.api_params, headers=self.api_headers)
+
+        self.code = r.status_code
+        self._data = r.json()
+
+        if self.code == 200:
+            if self.cdq:
+                self._config_data()
+
+    def get_data(self) -> dict:
+        """ Returns the whole data package of the object. This should be used instead of `self._data`. """
+        return self._data
 
 class ObjectScaffold():
     def __init__(self, data: dict) -> None:

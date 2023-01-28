@@ -23,6 +23,7 @@ class Users(db.Model):
     smh_access_token = ''
 
     spotify_access_token = ''
+    spotify_country_code = ''
     spotify_request_token = ''
 
     @property
